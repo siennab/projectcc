@@ -9,47 +9,51 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-  late  GoogleSignIn _googleSignIn;
+  late GoogleSignIn _googleSignIn;
 
   @override
   void initState() {
     super.initState();
-       _googleSignIn = GoogleSignIn(
-        clientId: '837356858900-3aahn0oasi8c9ebe6sia6t5hkccerefi.apps.googleusercontent.com',
-        serverClientId: '407871450236-bpehuinb1fbjq1t2dim3lr90ksmgq603.apps.googleusercontent.com',
-        scopes: [
-          'email',
-          'https://www.googleapis.com/auth/contacts.readonly',
-        ],
-      );
-  
+    _googleSignIn = GoogleSignIn(
+      clientId:
+          '837356858900-3aahn0oasi8c9ebe6sia6t5hkccerefi.apps.googleusercontent.com',
+      serverClientId:
+          '407871450236-bpehuinb1fbjq1t2dim3lr90ksmgq603.apps.googleusercontent.com',
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
   }
 
-      @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: Center(
-      
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children:  <Widget>[
+          children: <Widget>[
             const Text(
-              'Login with google',
+              'Login',
             ),
-            ElevatedButton(onPressed: () {
-               _googleSignIn.signIn().then((value) => 
-              Navigator.of(context).pushNamed('/survey')
+            ElevatedButton(
+                onPressed: () {
+                  /// Need to configure oauth credentials properly
+                  /* _googleSignIn
+                      .signIn()
+                      .then(
+                          (value) => Navigator.of(context).pushNamed('/survey'))
+                      .catchError((e) {
+                    /// broken
+                  }); */
 
-               ).catchError((e) {
-                /// broken
-               });
-            }, child: const Text('Login'))
+                  Navigator.of(context).pushNamed('/survey');
+                },
+                child: const Text('Login'))
           ],
         ),
       ),
     );
-    }
   }
+}

@@ -6,7 +6,7 @@ class UserRanking {
       required this.agree,
       required this.weight});
   final int id;
-  final int userId;
+  final String userId;
   final int questionId;
   final bool agree;
   final num weight;

@@ -18,8 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _googleSignIn = GoogleSignIn(
-      clientId:
-          '837356858900-3aahn0oasi8c9ebe6sia6t5hkccerefi.apps.googleusercontent.com',
+      // clientId:
+      //    '837356858900-3aahn0oasi8c9ebe6sia6t5hkccerefi.apps.googleusercontent.com',
       scopes: [
         'email',
         'https://www.googleapis.com/auth/contacts.readonly',
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   _googleSignIn.signIn().then((value) {
                     if (value != null) {
                       UserService().registerUser(
-                          newUser: User(id: '0', email: value!.email));
+                          newUser: User(id: '0', email: value.email));
                       Navigator.of(context).pushNamed('/survey');
                     }
                   }).catchError((e) {

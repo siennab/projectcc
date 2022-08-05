@@ -23,11 +23,19 @@ class MyApp extends StatelessWidget {
         '/results': (context) => const ResultsPage(),
       },
       theme: ThemeData(
-        primaryColor: const Color.fromARGB(255, 148, 68, 68),
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(
+            color: Color(0xff333333),
+          ),
+          bodyText2: TextStyle(
+            color: Color(0xff333333),
+          ),
+        ),
+        primaryColor: const Color(0xffAD5A6F),
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
-            primary: Color.fromARGB(255, 148, 68, 68),
-            secondary: Color.fromARGB(255, 68, 104, 148),
+            primary: Color(0xffAD5A6F),
+            secondary: Color(0Xff3E5266),
             onPrimary: Colors.white,
             error: Colors.black,
             onError: Colors.white,

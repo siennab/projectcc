@@ -42,7 +42,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  _googleSignIn.signIn().then((value) {
+                  Navigator.of(context).pushNamed('/survey');
+
+                  /*  _googleSignIn.signIn().then((value) {
                     if (value != null) {
                       UserService().registerUser(
                           newUser: User(id: '0', email: value.email));
@@ -50,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   }).catchError((e) {
                     /// show error message
-                  });
+                  }); */
                 },
                 child: const Text('Login'))
           ],

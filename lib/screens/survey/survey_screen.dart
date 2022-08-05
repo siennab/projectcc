@@ -109,7 +109,7 @@ class _SurveyPageState extends State<SurveyPage> {
   Future<void> _showGeneralDialog(String questionText) {
     return showGeneralDialog(
       context: context,
-      transitionDuration: Duration(milliseconds: 280),
+      transitionDuration: const Duration(milliseconds: 280),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
           opacity: animation,

@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CCSlider extends StatefulWidget {
-  const CCSlider({Key? key}) : super(key: key);
+  const CCSlider({required this.onChanged, Key? key}) : super(key: key);
+
+  final Function onChanged;
 
   @override
   State<CCSlider> createState() => _CCSliderState();
@@ -30,6 +32,7 @@ class _CCSliderState extends State<CCSlider> {
               setState(() {
                 _weightValue = value;
               });
+              (value) => widget.onChanged;
             },
           ),
         ),

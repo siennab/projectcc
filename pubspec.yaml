@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^3.4.1
   google_sign_in: ^5.4.0
   swipe_cards: ^1.0.0
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:

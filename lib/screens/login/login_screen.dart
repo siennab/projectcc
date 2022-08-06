@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_cc/model/user.dart';
-import 'package:project_cc/services/questions_service.dart';
 import 'package:project_cc/services/user_service.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,8 +25,6 @@ class _LoginPageState extends State<LoginPage> {
         'https://www.googleapis.com/auth/contacts.readonly',
       ],
     );
-
-    QuestionService().getQuestions();
   }
 
   @override
@@ -37,24 +35,34 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Login with google',
+            Text(
+              'PROJECT CC',
+              style: Theme.of(context).textTheme.headline1,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/survey');
-
-                  /*  _googleSignIn.signIn().then((value) {
-                    if (value != null) {
-                      UserService().registerUser(
-                          newUser: User(id: '0', email: value.email));
-                      Navigator.of(context).pushNamed('/survey');
-                    }
-                  }).catchError((e) {
-                    /// show error message
-                  }); */
-                },
-                child: const Text('Login'))
+            const SizedBox(height: 8),
+            SignInButton(
+              Buttons.Google,
+              onPressed: () {
+                _googleSignIn.signIn().then((value) {
+                  if (value != null) {
+                    UserService().registerUser(
+                        newUser: User(id: '0', email: value.email));
+                    Navigator.of(context).pushNamed('/survey');
+                  }
+                }).catchError((e) {
+                  /// show error message
+                });
+              },
+            ),
+            SignInButton(Buttons.Apple, onPressed: () {
+              Navigator.of(context).pushNamed('/survey');
+            }),
+            SignInButton(Buttons.FacebookNew, onPressed: () {
+              Navigator.of(context).pushNamed('/survey');
+            }),
+            SignInButton(Buttons.Twitter, onPressed: () {
+              Navigator.of(context).pushNamed('/survey');
+            }),
           ],
         ),
       ),

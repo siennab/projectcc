@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class CCSlider extends StatefulWidget {
@@ -16,8 +18,8 @@ class _CCSliderState extends State<CCSlider> {
       height: 225,
       child: Transform(
         alignment: FractionalOffset.center,
-        // Rotate sliders by 90 degrees
-        transform: Matrix4.identity()..rotateZ(-90 * 3.1415927 / 180),
+        // Rotate slider by 90 degrees
+        transform: Matrix4.identity()..rotateZ(-90 * pi / 180),
         child: SizedBox(
           width: 225,
           child: Slider(

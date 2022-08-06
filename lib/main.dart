@@ -23,12 +23,15 @@ class MyApp extends StatelessWidget {
         '/results': (context) => const ResultsPage(),
       },
       theme: ThemeData(
+        fontFamily: 'Montserrat',
         textTheme: const TextTheme(
           bodyText1: TextStyle(
             color: Color(0xff333333),
+            fontFamily: 'Montserrat',
           ),
           bodyText2: TextStyle(
             color: Color(0xff333333),
+            fontFamily: 'Montserrat',
           ),
         ),
         primaryColor: const Color(0xffAD5A6F),

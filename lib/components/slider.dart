@@ -32,7 +32,7 @@ class _CCSliderState extends State<CCSlider> {
               setState(() {
                 _weightValue = value;
               });
-              (value) => widget.onChanged;
+              widget.onChanged(value);
             },
           ),
         ),

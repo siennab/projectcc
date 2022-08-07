@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_cc/model/user.dart';
 
 class UserService {
@@ -23,5 +24,8 @@ class UserService {
     if (user == null) {
       await firestore.collection('/users').add(newUser.toJson());
     }
+
+    /// store user locally for session
+    const FlutterSecureStorage().write(key: 'user_email', value: newUser.email);
   }
 }

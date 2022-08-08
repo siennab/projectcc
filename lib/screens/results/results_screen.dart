@@ -45,13 +45,26 @@ class _ResultsPageState extends State<ResultsPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(e.question.copy),
-                                      SizedBox(height: 4),
+                                      Row(children: [
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                1.25,
+                                            child: Text(e.question.copy)),
+                                        Expanded(child: Container()),
+                                        Switch(
+                                          value: e.agree,
+                                          onChanged: (bool value) {},
+                                          activeColor: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                      ]),
                                       Text(
-                                        e.agree ? 'Agree' : 'Disagree',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                          'Importance: ${(e.weight * 100).round()}%',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold))
                                     ]),
                               ),
                               const Divider()

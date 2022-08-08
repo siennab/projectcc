@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:project_cc/model/user_ranking.dart';
 
 class UserRankingService {
@@ -8,17 +9,28 @@ class UserRankingService {
     final userRankings = firestore.collection('/user_ranking');
 
     final existingRanking = userRankings
-        .where('user_id', isEqualTo: ranking.userId)
-        .where('question_id', isEqualTo: ranking.questionId);
+        .where('userId', isEqualTo: ranking.userId)
+        .where('questionId', isEqualTo: ranking.questionId);
 
     final snapshot = await existingRanking.get()
       ..docs;
 
     if (snapshot.docs.isEmpty) {
-      await firestore.collection('/user_ranking').add(ranking.toJson());
+      await userRankings.add(ranking.toJson());
       return;
     }
 
     userRankings.doc(snapshot.docs.first.id).update(ranking.toJson());
+  }
+
+  Future<List<UserRanking>> getUserRankings() async {
+    final userId = await const FlutterSecureStorage().read(key: 'user_id');
+
+    final userRankings = firestore
+        .collection('/user_ranking')
+        .where('userId', isEqualTo: userId);
+
+    final rankings = await userRankings.get();
+    return rankings.docs.map((e) => UserRanking.fromSnapshot(e, e.id)).toList();
   }
 }

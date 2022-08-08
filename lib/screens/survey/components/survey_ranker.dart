@@ -55,7 +55,8 @@ class SurveyRanker extends StatelessWidget {
                 UserRankingService()
                     .rankQuestion(UserRanking(
                         userId: userId,
-                        questionId: question.id,
+                        questionId: question.id!,
+                        question: question,
                         agree: agree,
                         weight: rankingValue))
                     .then((value) => Navigator.of(context).pop());

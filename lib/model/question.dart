@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Question {
   Question({required this.id, required this.copy});
-  final String id;
+  final String? id;
   final String copy;
 
   factory Question.fromSnapshot(DocumentSnapshot snapshot, String id) {
@@ -12,7 +12,7 @@ class Question {
     return question;
   }
 
-  factory Question.fromJson(Map<String, dynamic> json, String id) {
+  factory Question.fromJson(Map<String, dynamic> json, String? id) {
     return Question(id: id, copy: json['copy']);
   }
 

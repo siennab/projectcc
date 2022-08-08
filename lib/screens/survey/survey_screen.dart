@@ -29,7 +29,21 @@ class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/results');
+              },
+              child: Text(
+                'RESULTS',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.white),
+              ))
+        ],
+      ),
       body: isLoading ? const CCLoader() : SurveySwiper(questions: questions),
     );
   }

@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project_cc/components/slider.dart';
+import 'package:project_cc/model/question.dart';
+import 'package:project_cc/model/user_ranking.dart';
+import 'package:project_cc/services/user_ranking_service.dart';
 
 class SurveyRanker extends StatelessWidget {
+  const SurveyRanker({required this.question, required this.agree, Key? key})
+      : super(key: key);
+  final Question question;
+  final bool agree;
   @override
   Widget build(BuildContext context) {
+    num rankingValue = 0;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -14,9 +24,9 @@ class SurveyRanker extends StatelessWidget {
           Center(
             child: Container(
               width: 200,
-              padding: EdgeInsets.only(top: 16),
+              padding: const EdgeInsets.only(top: 16),
               child: Text(
-                '"$questionText"',
+                '"${question.copy}"',
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     fontSize: 12,
                     color: Colors.grey,
@@ -31,14 +41,25 @@ class SurveyRanker extends StatelessWidget {
               color: Theme.of(context).colorScheme.background,
               child: CCSlider(
                 onChanged: (num value) {
-                  // to do: save result
+                  rankingValue = value;
                 },
               ),
             ),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              /// save _ranking value
+              final userId =
+                  await const FlutterSecureStorage().read(key: 'user_id');
+              if (userId != null) {
+                UserRankingService()
+                    .rankQuestion(UserRanking(
+                        userId: userId,
+                        questionId: question.id,
+                        agree: agree,
+                        weight: rankingValue))
+                    .then((value) => Navigator.of(context).pop());
+              }
             },
             child: const Text(
               "DONE",

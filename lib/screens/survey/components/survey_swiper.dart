@@ -25,7 +25,15 @@ class SurveySwiper extends StatelessWidget {
                   child: SwipeCards(
                     matchEngine: MatchEngine(
                       swipeItems: questions
-                          .map((e) => SwipeItem(content: Text(e.copy)))
+                          .map((e) => SwipeItem(
+                                content: Text(e.copy),
+                                likeAction: () async {
+                                  await _showGeneralDialog(e, true, context);
+                                },
+                                nopeAction: () async {
+                                  await _showGeneralDialog(e, false, context);
+                                },
+                              ))
                           .toList(),
                     ),
                     itemBuilder: (BuildContext context, int index) {
@@ -61,9 +69,6 @@ class SurveySwiper extends StatelessWidget {
                       /// navigate to profile
                       Navigator.of(context).pushNamed('/results');
                     },
-                    itemChanged: (SwipeItem item, int index) async {
-                      await _showGeneralDialog(questions[index - 1], context);
-                    },
                     upSwipeAllowed: true,
                     fillSpace: true,
                   ),
@@ -76,7 +81,8 @@ class SurveySwiper extends StatelessWidget {
     );
   }
 
-  Future<void> _showGeneralDialog(Question question, BuildContext context) {
+  Future<void> _showGeneralDialog(
+      Question question, bool agree, BuildContext context) {
     return showGeneralDialog(
       context: context,
       transitionDuration: const Duration(milliseconds: 280),
@@ -88,7 +94,10 @@ class SurveySwiper extends StatelessWidget {
       },
       pageBuilder: (context, animation, secondaryAnimation) {
         return CCFullSizeDialog(
-          child: SurveyRanker(question: question),
+          child: SurveyRanker(
+            question: question,
+            agree: agree,
+          ),
         );
       },
     );

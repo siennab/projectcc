@@ -22,10 +22,13 @@ class UserService {
   Future<void> registerUser({required User newUser}) async {
     var user = await getUser(emailAddress: newUser.email);
     if (user == null) {
-      await firestore.collection('/users').add(newUser.toJson());
+      final record = await firestore.collection('/users').add(newUser.toJson());
+      final createdUser = await record.get()
+        ..data();
+      user = User.fromSnapshot(createdUser, createdUser.id);
     }
 
     /// store user locally for session
-    const FlutterSecureStorage().write(key: 'user_email', value: newUser.email);
+    const FlutterSecureStorage().write(key: 'user_id', value: user.id);
   }
 }

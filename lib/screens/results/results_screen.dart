@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_cc/components/loader.dart';
+import 'package:project_cc/components/switch.dart';
 import 'package:project_cc/model/user_ranking.dart';
 import 'package:project_cc/services/user_ranking_service.dart';
 
@@ -53,12 +54,18 @@ class _ResultsPageState extends State<ResultsPage> {
                                                 1.25,
                                             child: Text(e.question.copy)),
                                         Expanded(child: Container()),
-                                        Switch(
-                                          value: e.agree,
-                                          onChanged: (bool value) {},
-                                          activeColor: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
+                                        CCSwitch(
+                                          selected: e.agree,
+                                          onChanged: (bool value) {
+                                            /// set rank
+                                            UserRankingService().rankQuestion(
+                                                UserRanking(
+                                                    userId: e.userId,
+                                                    questionId: e.questionId,
+                                                    question: e.question,
+                                                    agree: value,
+                                                    weight: e.weight));
+                                          },
                                         ),
                                       ]),
                                       Text(

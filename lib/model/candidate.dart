@@ -5,6 +5,14 @@ class Candidate {
   Candidate({required this.name, required this.positions});
   final String name;
   List<CandidateRanking>? positions;
+  num score = 0;
+
+  factory Candidate.fromSnapshot(DocumentSnapshot snapshot) {
+    final election =
+        Candidate.fromJson(snapshot.data() as Map<String, dynamic>);
+
+    return election;
+  }
 
   factory Candidate.fromJson(Map<String, dynamic> json) {
     final positions = json['positions'] as List<dynamic>?;

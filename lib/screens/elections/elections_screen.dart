@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_cc/components/loader.dart';
-import 'package:project_cc/components/switch.dart';
 import 'package:project_cc/model/election.dart';
-import 'package:project_cc/model/user_ranking.dart';
+import 'package:project_cc/screens/election/election_screen.dart';
 import 'package:project_cc/services/elections_service.dart';
-import 'package:project_cc/services/user_ranking_service.dart';
 
 class ElectionsPage extends StatefulWidget {
   const ElectionsPage({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class _ElectionsPageState extends State<ElectionsPage> {
   @override
   void initState() {
     super.initState();
-    ElectionsService().getQuestions().then((res) {
+    ElectionsService().getElections().then((res) {
       setState(() {
         elections = res.toList();
         isLoading = false;
@@ -38,12 +36,34 @@ class _ElectionsPageState extends State<ElectionsPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: isLoading
                   ? [const CCLoader()]
-                  : elections
-                      .map((e) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [Text(e.name), const Divider()],
-                          ))
-                      .toList()),
+                  : [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Choose an Election',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                      ),
+                      ...elections
+                          .map((e) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    child: Text(e.name),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ElectionPage(election: e),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ))
+                          .toList()
+                    ]),
         ),
       ),
     );

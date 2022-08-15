@@ -67,7 +67,7 @@ class SurveySwiper extends StatelessWidget {
                     },
                     onStackFinished: () {
                       /// navigate to profile
-                      Navigator.of(context).pushNamed('/results');
+                      Navigator.of(context).pushNamed('/elections');
                     },
                     upSwipeAllowed: true,
                     fillSpace: true,

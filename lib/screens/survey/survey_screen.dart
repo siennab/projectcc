@@ -33,7 +33,7 @@ class _SurveyPageState extends State<SurveyPage> {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/results');
+                Navigator.of(context).pushNamed('/elections');
               },
               child: Text(
                 'RESULTS',

@@ -48,17 +48,20 @@ class _ElectionsPageState extends State<ElectionsPage> {
                           .map((e) => Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  ElevatedButton(
-                                    child: Text(e.name),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ElectionPage(election: e),
-                                        ),
-                                      );
-                                    },
+                                  SizedBox(
+                                    width: 200,
+                                    child: ElevatedButton(
+                                      child: Text(e.name),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ElectionPage(election: e),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ],
                               ))

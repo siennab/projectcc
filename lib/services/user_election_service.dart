@@ -13,7 +13,7 @@ class UserElectionService {
         for (var userRanking in rankings) {
           if (candidatePosition.quesitonId == userRanking.questionId) {
             if (userRanking.agree == candidatePosition.agree) {
-              candidate.score += 1;
+              candidate.score += (userRanking.weight) * .1;
             }
           }
         }

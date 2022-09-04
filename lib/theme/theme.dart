@@ -3,18 +3,25 @@ import 'package:flutter/material.dart';
 final themeData = ThemeData(
   fontFamily: 'Montserrat',
   textTheme: const TextTheme(
-      bodyText1: TextStyle(
-        color: Color(0xff333333),
-      ),
-      bodyText2: TextStyle(
-        color: Color(0xff333333),
-      ),
-      headline1: TextStyle(
-        color: Color(0xff333333),
-        fontWeight: FontWeight.w100,
-        letterSpacing: 1.3,
-        fontSize: 28,
-      )),
+    bodyText1: TextStyle(
+      color: Color(0xff333333),
+    ),
+    bodyText2: TextStyle(
+      color: Color(0xff333333),
+    ),
+    headline1: TextStyle(
+      color: Color(0xff333333),
+      fontWeight: FontWeight.w100,
+      letterSpacing: 1.3,
+      fontSize: 28,
+    ),
+    headline2: TextStyle(
+      color: Color(0xff333333),
+      fontWeight: FontWeight.w100,
+      letterSpacing: 1.3,
+      fontSize: 18,
+    ),
+  ),
   primaryColor: const Color(0xffAD5A6F),
   colorScheme: const ColorScheme(
       brightness: Brightness.light,

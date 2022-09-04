@@ -12,7 +12,7 @@ class SurveyRanker extends StatelessWidget {
   final bool agree;
   @override
   Widget build(BuildContext context) {
-    num rankingValue = 0;
+    num rankingValue = 0.5;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_cc/components/card.dart';
 import 'package:project_cc/components/full_size_dialog.dart';
 import 'package:project_cc/model/question.dart';
 import 'package:project_cc/screens/survey/components/survey_ranker.dart';
@@ -11,6 +12,20 @@ class SurveySwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var matchEngine = MatchEngine(
+      swipeItems: questions
+          .map((e) => SwipeItem(
+                content: Text(e.copy),
+                likeAction: () async {
+                  await _showGeneralDialog(e, true, context);
+                },
+                nopeAction: () async {
+                  await _showGeneralDialog(e, false, context);
+                },
+              ))
+          .toList(),
+    );
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,40 +38,9 @@ class SurveySwiper extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height - kToolbarHeight,
                   child: SwipeCards(
-                    matchEngine: MatchEngine(
-                      swipeItems: questions
-                          .map((e) => SwipeItem(
-                                content: Text(e.copy),
-                                likeAction: () async {
-                                  await _showGeneralDialog(e, true, context);
-                                },
-                                nopeAction: () async {
-                                  await _showGeneralDialog(e, false, context);
-                                },
-                              ))
-                          .toList(),
-                    ),
+                    matchEngine: matchEngine,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.background,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.15),
-                              spreadRadius: 2,
-                              blurRadius: 8,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(16),
+                      return PCard(
                         child: Text(
                           questions[index].copy,
                           textAlign: TextAlign.center,
@@ -76,6 +60,33 @@ class SurveySwiper extends StatelessWidget {
               ],
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  onPressed: () {
+                    matchEngine.currentItem?.like();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: const Text('Agree'),
+                ),
+              ),
+              const SizedBox(width: 8),
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  onPressed: () {
+                    matchEngine.currentItem?.nope();
+                  },
+                  child: const Text('Disagree'),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

@@ -35,12 +35,9 @@ class _SurveyPageState extends State<SurveyPage> {
               onPressed: () {
                 Navigator.of(context).pushNamed('/elections');
               },
-              child: Text(
-                'RESULTS',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Colors.white),
+              child: Icon(
+                Icons.list,
+                color: Theme.of(context).colorScheme.background,
               ))
         ],
       ),

@@ -31,8 +31,8 @@ class SurveySwiper extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-            height: 200,
-            margin: const EdgeInsets.all(16),
+            height: 250,
+            margin: const EdgeInsets.only(left: 16, right: 16),
             child: Stack(
               children: [
                 SizedBox(
@@ -64,27 +64,25 @@ class SurveySwiper extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 100,
+                width: 80,
                 child: ElevatedButton(
-                  onPressed: () {
-                    matchEngine.currentItem?.like();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: const Text('Agree'),
-                ),
+                    onPressed: () {
+                      matchEngine.currentItem?.nope();
+                    },
+                    child: const Icon(Icons.thumb_down)),
               ),
               const SizedBox(width: 8),
               SizedBox(
-                width: 100,
+                width: 80,
                 child: ElevatedButton(
-                  onPressed: () {
-                    matchEngine.currentItem?.nope();
-                  },
-                  child: const Text('Disagree'),
-                ),
-              )
+                    onPressed: () {
+                      matchEngine.currentItem?.like();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: const Icon(Icons.thumb_up)),
+              ),
             ],
           )
         ],

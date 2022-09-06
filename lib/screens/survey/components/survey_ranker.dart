@@ -47,25 +47,22 @@ class SurveyRanker extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () async {
-              /// save _ranking value
-              final userId =
-                  await const FlutterSecureStorage().read(key: 'user_id');
-              if (userId != null) {
-                UserRankingService()
-                    .rankQuestion(UserRanking(
-                        userId: userId,
-                        questionId: question.id!,
-                        question: question,
-                        agree: agree,
-                        weight: rankingValue))
-                    .then((value) => Navigator.of(context).pop());
-              }
-            },
-            child: const Text(
-              "DONE",
-            ),
-          )
+              onPressed: () async {
+                /// save _ranking value
+                final userId =
+                    await const FlutterSecureStorage().read(key: 'user_id');
+                if (userId != null) {
+                  UserRankingService()
+                      .rankQuestion(UserRanking(
+                          userId: userId,
+                          questionId: question.id!,
+                          question: question,
+                          agree: agree,
+                          weight: rankingValue))
+                      .then((value) => Navigator.of(context).pop());
+                }
+              },
+              child: const Text('DONE'))
         ],
       ),
     );

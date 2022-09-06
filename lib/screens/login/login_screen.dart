@@ -32,38 +32,41 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'PROJECT CC',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            const SizedBox(height: 8),
-            SignInButton(
-              Buttons.Google,
-              onPressed: () {
-                _googleSignIn.signIn().then((value) {
-                  if (value != null) {
-                    UserService().registerUser(
-                        newUser: User(id: '0', email: value.email));
-                    Navigator.of(context).pushNamed('/survey');
-                  }
-                }).catchError((e) {
-                  /// show error message
-                });
-              },
-            ),
-            SignInButton(Buttons.Apple, onPressed: () {
-              Navigator.of(context).pushNamed('/survey');
-            }),
-            SignInButton(Buttons.FacebookNew, onPressed: () {
-              Navigator.of(context).pushNamed('/survey');
-            }),
-            SignInButton(Buttons.Twitter, onPressed: () {
-              Navigator.of(context).pushNamed('/survey');
-            }),
-          ],
+        child: Container(
+          width: 400,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'PROJECT CC',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+              const SizedBox(height: 8),
+              SignInButton(
+                Buttons.Google,
+                onPressed: () {
+                  _googleSignIn.signIn().then((value) {
+                    if (value != null) {
+                      UserService().registerUser(
+                          newUser: User(id: '0', email: value.email));
+                      Navigator.of(context).pushNamed('/survey');
+                    }
+                  }).catchError((e) {
+                    /// show error message
+                  });
+                },
+              ),
+              SignInButton(Buttons.Apple, onPressed: () {
+                Navigator.of(context).pushNamed('/survey');
+              }),
+              SignInButton(Buttons.FacebookNew, onPressed: () {
+                Navigator.of(context).pushNamed('/survey');
+              }),
+              SignInButton(Buttons.Twitter, onPressed: () {
+                Navigator.of(context).pushNamed('/survey');
+              }),
+            ],
+          ),
         ),
       ),
     );

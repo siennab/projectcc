@@ -30,44 +30,42 @@ class _ElectionsPageState extends State<ElectionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: isLoading
-                  ? [const CCLoader()]
-                  : [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Choose an Election',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
+      body: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: isLoading
+                ? [const CCLoader()]
+                : [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Choose an Election',
+                        style: Theme.of(context).textTheme.headline1,
                       ),
-                      ...elections
-                          .map((e) => Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 200,
-                                    child: ElevatedButton(
-                                      child: Text(e.name),
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ElectionPage(election: e),
-                                          ),
-                                        );
-                                      },
-                                    ),
+                    ),
+                    ...elections
+                        .map((e) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 250,
+                                  child: ElevatedButton(
+                                    child: Text(e.name),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ElectionPage(election: e),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                ],
-                              ))
-                          .toList()
-                    ]),
-        ),
+                                ),
+                              ],
+                            ))
+                        .toList()
+                  ]),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_cc/model/user.dart';
 import 'package:project_cc/services/user_service.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -56,15 +57,22 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
-              SignInButton(Buttons.Apple, onPressed: () {
-                Navigator.of(context).pushNamed('/survey');
-              }),
-              SignInButton(Buttons.FacebookNew, onPressed: () {
-                Navigator.of(context).pushNamed('/survey');
-              }),
-              SignInButton(Buttons.Twitter, onPressed: () {
-                Navigator.of(context).pushNamed('/survey');
-              }),
+              SignInButton(
+                Buttons.AppleDark,
+                onPressed: () async {
+                  final credential = await SignInWithApple.getAppleIDCredential(
+                    scopes: [
+                      AppleIDAuthorizationScopes.email,
+                      AppleIDAuthorizationScopes.fullName,
+                    ],
+                  );
+
+                  print(credential);
+
+                  // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+                  // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+                },
+              ),
             ],
           ),
         ),

@@ -5,9 +5,10 @@ import 'package:project_cc/model/user.dart';
 class UserService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<User?> getUser({required String emailAddress}) async {
-    final users =
-        firestore.collection('/users').where('email', isEqualTo: emailAddress);
+  Future<User?> getUser({required String thirdPartyIdentifier}) async {
+    final users = firestore
+        .collection('/users')
+        .where('thirdPartyIdentifier', isEqualTo: thirdPartyIdentifier);
 
     final snapshot = await users.get()
       ..docs;
@@ -20,7 +21,8 @@ class UserService {
   }
 
   Future<void> registerUser({required User newUser}) async {
-    var user = await getUser(emailAddress: newUser.email);
+    var user =
+        await getUser(thirdPartyIdentifier: newUser.thirdPartyIdentifier);
     if (user == null) {
       final record = await firestore.collection('/users').add(newUser.toJson());
       final createdUser = await record.get()
@@ -29,6 +31,11 @@ class UserService {
     }
 
     /// store user locally for session
-    const FlutterSecureStorage().write(key: 'user_id', value: user.id);
+    const FlutterSecureStorage()
+        .write(key: 'user_id', value: user.thirdPartyIdentifier);
+  }
+
+  Future<void> logout() {
+    return const FlutterSecureStorage().delete(key: 'user_id');
   }
 }

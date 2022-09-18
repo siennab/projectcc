@@ -3,6 +3,7 @@ import 'package:project_cc/components/card.dart';
 import 'package:project_cc/components/full_size_dialog.dart';
 import 'package:project_cc/model/question.dart';
 import 'package:project_cc/screens/survey/components/survey_ranker.dart';
+import 'package:project_cc/services/user_ranking_service.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 
 class SurveySwiper extends StatelessWidget {
@@ -15,14 +16,23 @@ class SurveySwiper extends StatelessWidget {
     var matchEngine = MatchEngine(
       swipeItems: questions
           .map((e) => SwipeItem(
-                content: Text(e.copy),
-                likeAction: () async {
-                  await _showGeneralDialog(e, true, context);
-                },
-                nopeAction: () async {
-                  await _showGeneralDialog(e, false, context);
-                },
-              ))
+              content: Text(e.copy),
+              likeAction: () async {
+                UserRankingService()
+                    .rank(agree: true, question: e, weight: 0.5);
+
+                /// await _showGeneralDialog(e, true, context);
+              },
+              nopeAction: () async {
+                UserRankingService()
+                    .rank(agree: false, question: e, weight: 0.5);
+
+                // await _showGeneralDialog(e, false, context);
+              },
+              superlikeAction: () {
+                UserRankingService()
+                    .rank(agree: null, question: e, weight: 0.5);
+              }))
           .toList(),
     );
 
@@ -60,30 +70,49 @@ class SurveySwiper extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 80,
-                child: ElevatedButton(
-                    onPressed: () {
-                      matchEngine.currentItem?.nope();
-                    },
-                    child: const Icon(Icons.thumb_down)),
-              ),
-              const SizedBox(width: 8),
-              SizedBox(
-                width: 80,
-                child: ElevatedButton(
-                    onPressed: () {
-                      matchEngine.currentItem?.like();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).colorScheme.primary,
-                    ),
-                    child: const Icon(Icons.thumb_up)),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.speed,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+                Expanded(
+                  child: Container(),
+                ),
+                SizedBox(
+                  width: 40,
+                  child: TextButton(
+                      onPressed: () {
+                        matchEngine.currentItem?.nope();
+                      },
+                      child: const Icon(Icons.thumb_down_outlined)),
+                ),
+                const SizedBox(width: 8),
+                SizedBox(
+                  width: 40,
+                  child: TextButton(
+                      onPressed: () {
+                        matchEngine.currentItem?.superLike();
+                      },
+                      child: const Icon(Icons.psychology_outlined)),
+                ),
+                const SizedBox(width: 8),
+                SizedBox(
+                  width: 40,
+                  child: TextButton(
+                      onPressed: () {
+                        matchEngine.currentItem?.like();
+                      },
+                      child: const Icon(Icons.thumb_up_outlined)),
+                ),
+              ],
+            ),
           )
         ],
       ),

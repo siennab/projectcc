@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project_cc/components/app_bar.dart';
+import 'package:project_cc/components/bottom_bar.dart';
 import 'package:project_cc/components/card.dart';
 import 'package:project_cc/components/loader.dart';
 import 'package:project_cc/model/candidate.dart';
@@ -39,7 +41,7 @@ class _CandidatePageState extends State<CandidatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CCAppBar(),
       body: SingleChildScrollView(
         child: isLoading
             ? const Center(child: CCLoader())
@@ -104,6 +106,7 @@ class _CandidatePageState extends State<CandidatePage> {
                 }),
               ]))),
       ),
+      bottomNavigationBar: const PBottomBar(selectedIndex: 1),
     );
   }
 }

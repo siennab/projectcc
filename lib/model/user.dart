@@ -2,9 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_cc/model/user_ranking.dart';
 
 class User {
-  User({required this.id, required this.email, this.userRanking});
-  final String id;
-  final String email;
+  User(
+      {this.id,
+      required this.email,
+      required this.thirdPartyIdentifier,
+      this.userRanking});
+  final String? id;
+  final String? email;
+  final String thirdPartyIdentifier;
 
   UserRanking? userRanking;
 
@@ -15,12 +20,16 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json, String id) {
-    return User(id: id, email: json['email']);
+    return User(
+        id: id,
+        email: json['email'],
+        thirdPartyIdentifier: json['thirdPartyIdentifier']);
   }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'email': email,
+      'thirdPartyIdentifier': thirdPartyIdentifier,
       'id': id,
     };
   }

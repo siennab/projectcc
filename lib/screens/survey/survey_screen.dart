@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_cc/components/app_bar.dart';
+import 'package:project_cc/components/bottom_bar.dart';
 import 'package:project_cc/components/loader.dart';
 import 'package:project_cc/model/question.dart';
 import 'package:project_cc/screens/survey/components/survey_swiper.dart';
@@ -29,19 +31,11 @@ class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/elections');
-              },
-              child: Icon(
-                Icons.list,
-                color: Theme.of(context).colorScheme.background,
-              ))
-        ],
+      appBar: CCAppBar(
+        automaticallyImplyLeading: false,
       ),
       body: isLoading ? const CCLoader() : SurveySwiper(questions: questions),
+      bottomNavigationBar: const PBottomBar(selectedIndex: 0),
     );
   }
 }

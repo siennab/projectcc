@@ -28,6 +28,7 @@ final themeData = ThemeData(
       primary: Color(0xffAD5A6F),
       secondary: Color(0Xff3E5266),
       onPrimary: Colors.white,
+      onSecondaryContainer: Colors.white,
       error: Colors.black,
       onError: Colors.white,
       onSurface: Colors.white,

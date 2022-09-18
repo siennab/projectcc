@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project_cc/components/app_bar.dart';
 import 'package:project_cc/components/loader.dart';
 import 'package:project_cc/model/election.dart';
 import 'package:project_cc/screens/election/election_screen.dart';
 import 'package:project_cc/services/elections_service.dart';
+
+import '../../components/bottom_bar.dart';
 
 class ElectionsPage extends StatefulWidget {
   const ElectionsPage({Key? key}) : super(key: key);
@@ -29,7 +32,9 @@ class _ElectionsPageState extends State<ElectionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CCAppBar(
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,6 +72,7 @@ class _ElectionsPageState extends State<ElectionsPage> {
                         .toList()
                   ]),
       ),
+      bottomNavigationBar: const PBottomBar(selectedIndex: 1),
     );
   }
 }

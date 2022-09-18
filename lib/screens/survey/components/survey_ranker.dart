@@ -9,7 +9,7 @@ class SurveyRanker extends StatelessWidget {
   const SurveyRanker({required this.question, required this.agree, Key? key})
       : super(key: key);
   final Question question;
-  final bool agree;
+  final bool? agree;
   @override
   Widget build(BuildContext context) {
     num rankingValue = 0.5;
@@ -48,19 +48,10 @@ class SurveyRanker extends StatelessWidget {
           ),
           TextButton(
               onPressed: () async {
-                /// save _ranking value
-                final userId =
-                    await const FlutterSecureStorage().read(key: 'user_id');
-                if (userId != null) {
-                  UserRankingService()
-                      .rankQuestion(UserRanking(
-                          userId: userId,
-                          questionId: question.id!,
-                          question: question,
-                          agree: agree,
-                          weight: rankingValue))
-                      .then((value) => Navigator.of(context).pop());
-                }
+                UserRankingService()
+                    .rank(
+                        agree: agree, question: question, weight: rankingValue)
+                    .then((value) => Navigator.of(context).pop());
               },
               child: const Text('DONE'))
         ],

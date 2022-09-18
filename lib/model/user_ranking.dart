@@ -8,12 +8,16 @@ class UserRanking {
       required this.question,
       required this.questionId,
       required this.agree,
+      required this.disagree,
+      required this.ranking,
       required this.weight});
   final String? id;
   final String userId;
   final String questionId;
   final Question question;
   final bool agree;
+  final bool disagree;
+  final int ranking;
   final num weight;
 
   factory UserRanking.fromSnapshot(DocumentSnapshot snapshot, String id) {
@@ -29,7 +33,9 @@ class UserRanking {
         userId: json['userId'],
         questionId: json['questionId'],
         question: Question.fromJson(json['question'], null),
-        agree: json['agree'],
+        agree: json['ranking'] == 1,
+        disagree: json['ranking'] == 0,
+        ranking: json['ranking'],
         weight: json['weight']);
   }
 
@@ -39,6 +45,8 @@ class UserRanking {
       'questionId': questionId,
       'question': question.toJson(),
       'agree': agree,
+      'disagree': disagree,
+      'ranking': ranking,
       'weight': weight,
     };
   }

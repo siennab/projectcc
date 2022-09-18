@@ -12,12 +12,17 @@ class UserElectionService {
       candidate.positions?.forEach((candidatePosition) {
         for (var userRanking in rankings) {
           if (candidatePosition.quesitonId == userRanking.questionId) {
-            if (userRanking.agree == candidatePosition.agree) {
-              candidate.score += (userRanking.weight) * .1;
+            if (userRanking.agree && candidatePosition.agree) {
+              candidate.score += (userRanking.weight);
+            } else if (candidatePosition.disagree && userRanking.agree) {
+              candidate.score -= (userRanking.weight);
+            } else if (candidatePosition.agree && !userRanking.agree) {
+              candidate.score -= (userRanking.weight);
             }
           }
         }
       });
+      candidate.score = candidate.score / rankings.length;
     });
 
     election.candidates?.sort((a, b) => b.score.compareTo(a.score));

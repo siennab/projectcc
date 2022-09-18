@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_cc/components/app_bar.dart';
+import 'package:project_cc/components/bottom_bar.dart';
 import 'package:project_cc/components/loader.dart';
 import 'package:project_cc/components/switch.dart';
 import 'package:project_cc/model/user_ranking.dart';
@@ -29,7 +31,9 @@ class _ResultsPageState extends State<ResultsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CCAppBar(
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -58,13 +62,11 @@ class _ResultsPageState extends State<ResultsPage> {
                                           selected: e.agree,
                                           onChanged: (bool value) {
                                             /// set rank
-                                            UserRankingService().rankQuestion(
-                                                UserRanking(
-                                                    userId: e.userId,
-                                                    questionId: e.questionId,
-                                                    question: e.question,
-                                                    agree: value,
-                                                    weight: e.weight));
+                                            UserRankingService().rank(
+                                              agree: value,
+                                              question: e.question,
+                                              weight: e.weight,
+                                            );
                                           },
                                         ),
                                       ]),
@@ -80,6 +82,7 @@ class _ResultsPageState extends State<ResultsPage> {
                       .toList()),
         ),
       ),
+      bottomNavigationBar: const PBottomBar(selectedIndex: 2),
     );
   }
 }

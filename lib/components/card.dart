@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PCard extends StatelessWidget {
-  const PCard({required this.child, this.backgroundColor, this.onTap, Key? key})
+  const PCard(
+      {required this.child,
+      this.bottomWidget,
+      this.backgroundColor,
+      this.onTap,
+      Key? key})
       : super(key: key);
   final Widget child;
+  final Widget? bottomWidget;
   final Color? backgroundColor;
   final Function? onTap;
 
@@ -16,16 +22,8 @@ class PCard extends StatelessWidget {
         }
       },
       child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(16),
-        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
             color: backgroundColor ?? Theme.of(context).colorScheme.background,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.15),
@@ -34,7 +32,21 @@ class PCard extends StatelessWidget {
                 offset: const Offset(0, 3), // changes position of shadow
               ),
             ]),
-        child: child,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(child: Container()),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(16),
+              margin: const EdgeInsets.all(8),
+              //height: 250,
+              child: child,
+            ),
+            if (bottomWidget != null) Expanded(child: Container()),
+            bottomWidget ?? Container(),
+          ],
+        ),
       ),
     );
   }

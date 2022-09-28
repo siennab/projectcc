@@ -12,12 +12,9 @@ class UserElectionService {
       candidate.positions?.forEach((candidatePosition) {
         for (var userRanking in rankings) {
           if (candidatePosition.quesitonId == userRanking.questionId) {
-            if (userRanking.agree && candidatePosition.agree) {
-              candidate.score += (userRanking.weight);
-            } else if (candidatePosition.disagree && userRanking.agree) {
-              candidate.score -= (userRanking.weight);
-            } else if (candidatePosition.agree && !userRanking.agree) {
-              candidate.score -= (userRanking.weight);
+            if (userRanking.ranking == candidatePosition.ranking) {
+              candidate.score += 1;
+              //to do: use weight
             }
           }
         }

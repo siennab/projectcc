@@ -35,16 +35,17 @@ class PCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(child: Container()),
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(16),
               margin: const EdgeInsets.all(8),
-              //height: 250,
+              //  height: 250,
               child: child,
             ),
-            if (bottomWidget != null) Expanded(child: Container()),
-            bottomWidget ?? Container(),
+            if (bottomWidget != null) ...[
+              Expanded(child: Container()),
+              bottomWidget!
+            ],
           ],
         ),
       ),

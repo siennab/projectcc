@@ -9,6 +9,7 @@ import 'package:project_cc/model/question.dart';
 import 'package:project_cc/model/user_ranking.dart';
 import 'package:project_cc/services/questions_service.dart';
 import 'package:project_cc/services/user_ranking_service.dart';
+import 'package:collection/collection.dart';
 
 class CandidatePage extends StatefulWidget {
   const CandidatePage({required this.candidate, Key? key}) : super(key: key);
@@ -65,25 +66,23 @@ class _CandidatePageState extends State<CandidatePage> {
                   ),
                 ),
                 ...questions.map((e) {
-                  final agree = widget.candidate.positions
-                      ?.firstWhere(
-                        (element) => element.quesitonId == e.id,
-                      )
-                      .agree;
-                  final disagree = widget.candidate.positions
-                      ?.firstWhere(
-                        (element) => element.quesitonId == e.id,
-                      )
-                      .disagree;
+                  final question = widget.candidate.positions?.firstWhereOrNull(
+                    (element) => element.quesitonId == e.id,
+                  );
+
+                  final userRanking = userRankings.firstWhereOrNull(
+                    (element) => element.questionId == e.id,
+                  );
+
+                  final agree = question?.agree;
+                  final disagree = question?.disagree;
                   final agreeCopy = agree == true
                       ? 'Agree'
                       : (disagree == true ? 'Disagree' : 'N/A');
 
-                  final userAgree = userRankings
-                      .firstWhere(
-                        (element) => element.questionId == e.id,
-                      )
-                      .agree;
+                  final userAgreeCopy = userRanking?.agree == true
+                      ? 'Agree'
+                      : (userRanking?.disagree == true ? 'Disagree' : 'N/A');
 
                   return PCard(
                     child: Column(
@@ -99,7 +98,7 @@ class _CandidatePageState extends State<CandidatePage> {
                         const SizedBox(height: 8),
                         Text('${widget.candidate.name}: $agreeCopy'),
                         const SizedBox(height: 8),
-                        Text('You: ${userAgree ? 'Agree' : 'Disagree'}')
+                        Text('You: $userAgreeCopy')
                       ],
                     ),
                   );

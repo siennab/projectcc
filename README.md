@@ -6,5 +6,5 @@
 - Firebase 
 
 ## Links
-- [Firebase realtime database](https://firebase.google.com/docs/database/flutter/start)
+- [Firebase Cloud Firestore]([https://firebase.google.com/docs/database/flutter/start](https://firebase.google.com/docs/firestore))
 - [Google sign in](https://pub.dev/packages/google_sign_in)

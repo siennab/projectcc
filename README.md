@@ -1,5 +1,5 @@
 # Project CC
-- An unnamed political tinder-swiping app
+- An unnamed political Tinder-like swiping app
 
 ## Stack
 - Flutter/Dart 
